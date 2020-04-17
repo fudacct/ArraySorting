@@ -17,7 +17,7 @@ namespace ArraySorting
          * *************************/
         static void Main(string[] args)
         {
-            int[] array = new int[]{ 1, 2, 2, 16,-5, 5, 4,-2,-5 };
+            int[] array = new int[]{ 1, 2,-5,5,5,-5,2,-2, 2, -2, 16,-5, 5, 4,-2,-5 };
             Console.Write("原数组为：");
             for (int i = 0; i < array.Length; i++)
             {
@@ -76,16 +76,28 @@ namespace ArraySorting
             }
             Console.Write("\r\n");
             //根据特殊情况排序
+            int compareValue = 0;
+            bool isSwitched = false;
             for (int i = 0; i < list.Count; i++)
             {
                 int tempNumber = list[i];
-                bool isSwitched = false;
+                if (compareValue == tempNumber)
+                {
+                    if (isSwitched)
+                        continue;
+                }
+                else
+                {
+                    compareValue = 0;
+                    isSwitched = false;
+                }                    
                 if (tempNumber > 0)
                 {
                     for (int j = i+1; j < list.Count; j++)
                     {
                         if (tempNumber == list[j] * (-1))
                         {
+                            compareValue = tempNumber;
                             list.Insert(i + 1, list[j]);
                             list.RemoveAt(j + 1);
                             isSwitched = true;                            
